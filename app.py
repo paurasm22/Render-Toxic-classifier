@@ -10,8 +10,9 @@ def load_model():
         "text-classification",
         model=model_path,
         tokenizer=model_path,
-        return_all_scores=False,
+        top_k=1
     )
+
 
 classifier = load_model()
 

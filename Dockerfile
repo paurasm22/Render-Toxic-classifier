@@ -4,6 +4,7 @@ FROM python:3.10-slim
 # Prevent Python from writing .pyc files
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
+ENV STREAMLIT_SERVER_FILE_WATCHING="false"
 
 # Set working directory
 WORKDIR /app
@@ -17,7 +18,8 @@ RUN apt-get update && apt-get install -y \
 COPY requirements.txt .
 
 # Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --upgrade pip
+RUN pip install --default-timeout=200 --retries=10 --no-cache-dir -r requirements.txt
 
 # Copy app code
 COPY . .
